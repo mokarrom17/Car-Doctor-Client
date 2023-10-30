@@ -7,7 +7,7 @@ const Login = () => {
 
     const { signIn } = useContext(AuthContext)
     const location = useLocation();
-    // const nevigate = useNavigate();
+    const nevigate = useNavigate();
     console.log(location)
 
     const handleLogin = event => {
@@ -21,11 +21,14 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 const jwtUser = { email };
-                // nevigate(location?.state ? location.state : '/')
+
                 // get access token
-                axios.post('http://localhost:5000/jwt', jwtUser)
+                axios.post('http://localhost:5000/jwt', jwtUser, { withCredentials: true })
                     .then(res => {
                         console.log(res.data)
+                        if (res.data.success) {
+                            nevigate(location?.state ? location.state : '/')
+                        }
                     })
             })
             .catch(error => console.log(error));
