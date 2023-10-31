@@ -16,11 +16,9 @@ const SignUp = () => {
         createUser(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                console.log('created user', user)
             })
-            .then(error => {
-                console.log(error)
-            })
+            .catch(error => console.log(error))
     }
     return (
         <div className="hero min-h-screen bg-base-200">
